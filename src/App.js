@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
-
+import LoginGoogleFirebase from "./LoginGoogleFirebase";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { UseContextUser } from "./Context/AuthContext";
+import CreatePost from "./Post/CreatePost";
+import ShowPost from "./Post/ShowPost";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
+  const userLogin =
+    UseContextUser() || JSON.parse(localStorage.getItem("dataUser"));
+  const ProtectedRoute = ({ children }) => {
+    console.log("1111", userLogin);
+    if (!userLogin) {
+      return <Navigate to="/login" />;
+    } else {
+      return children;
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route
+          index
+          path="/"
+          element={
+            <ProtectedRoute>
+              <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<LoginGoogleFirebase />} />
+        <Route
+          path="/showpost"
+          element={
+            <ProtectedRoute>
+              <ShowPost />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+      <ToastContainer />
     </div>
   );
 }
