@@ -75,7 +75,6 @@ const ShowPost = () => {
           <div className="post-container">
             <h2 className="showpost-heading">List Post</h2>
 
-            <span className="icon-editpost"></span>
             {listData ? (
               listData.map((post, index) => {
                 return (

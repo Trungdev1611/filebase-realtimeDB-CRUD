@@ -69,7 +69,6 @@ const CreatePost = (props) => {
   const userLogin = UseContextUser();
   const [contentPost, setContentPost] = useState({});
   const navigate = useNavigate();
-  console.log("rfdfdfdfd", props.postItemEdit);
   useEffect(() => {
     if (props.postItemEdit) {
       setContentPost(props.postItemEdit);
